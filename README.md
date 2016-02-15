@@ -1,4 +1,4 @@
-# Web-Audio-API-file-loader-2
+# WKT Audio
 Web Audio API file loader with customizable node graph for each loaded file or batch.
 
 
