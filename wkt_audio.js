@@ -40,7 +40,7 @@ function audioFileLoader(fileDirectory, callback) {
 };
 
 function wktAudio(obj) {
-
+    var counter = 1;
     //________________________________________________________BEGIN converted object to array
     var arrayFromObj = Object.keys(obj).map(function(key) {
         return obj[key]
@@ -61,7 +61,9 @@ function wktAudio(obj) {
 
         if (answer.length > 1) {
 
-            throw "WKT Audio: Only one function can be used"
+
+            throw new Error("WKT Audio: Only one function can be used")
+
         }
 
     }
@@ -89,7 +91,7 @@ function wktAudio(obj) {
 
 
 
-    var counter = 1;
+
 
     for (var prop in obj) {
 
