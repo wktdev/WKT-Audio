@@ -71,7 +71,7 @@ function wktAudio(obj) {
 
     badInputCheck(arrayFromObj);
 
-    //________________________________________________________BEGIN array should only have 1 function, if more then throw error
+    //________________________________________________________END array should only have 1 function, if more then throw error
     //________________________________________________________BEGIN find function and set to head of array
 
     var oldHead = arrayFromObj[0];
