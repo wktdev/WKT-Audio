@@ -1,6 +1,6 @@
 //___________________________________________________________________________________________BEGIN Oscillator example
 
-var resources = {
+var resourcesOsc = {
     osc: 11, // ________________________________Number of oscillators
 
     nodes: function nodeGraph(sound, osc) {
@@ -20,7 +20,7 @@ var resources = {
 
 
 
-var synth = wktAudio(resources);
+var synth = wktAudio(resourcesOsc);
 
 
 
@@ -49,7 +49,7 @@ $(function() {
 
 //___________________________________________________________________________________________BEGIN Audio buffer example
 
-var resources = {
+var resourcesSounds = {
     loop: "sounds/drum_loop.mp3", // ________________________________Audio file directory
     snare: "sounds/snare.mp3", // ___________________________________Audio file directory
 
@@ -63,7 +63,7 @@ var resources = {
 
 
 
-var sound = wktAudio(resources);
+var sound = wktAudio(resourcesSounds);
 
 
 
