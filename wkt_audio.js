@@ -1,11 +1,18 @@
 var audioContext = new AudioContext();
 
-function audioFileLoader(fileDirectory, callback) {
+function audioFileLoader(fileDirectory, numberOfOscillators, callback) {
 
-
+    var oscillatorArr = [];
     var soundObj = {};
-
+    var oscillator = audioContext.createOscillator();
     var loadedSound = undefined;
+
+
+    for (var i = 0; i < numberOfOscillators; i += 1) {
+        oscillatorArr.push(audioContext.createOscillator())
+    }
+
+
     soundObj.fileDirectory = fileDirectory;
     var getSound = new XMLHttpRequest();
     getSound.open("GET", soundObj.fileDirectory, true);
@@ -23,17 +30,46 @@ function audioFileLoader(fileDirectory, callback) {
         getSound.send();
     }
 
+
+
     soundObj.play = function(time) {
+
+        oscillatorArr = [];
+
         loadedSound = audioContext.createBufferSource();
-        loadedSound.buffer = soundObj.soundToPlay;
-        loadedSound.start(audioContext.currentTime + time || 0);
+
+        if (soundObj.soundToPlay !== undefined) {
+
+            loadedSound.buffer = soundObj.soundToPlay;
+            loadedSound.start(audioContext.currentTime + time || 0);
+
+        }
 
 
-        return callback(loadedSound);
+        for (var i = 0; i < numberOfOscillators; i += 1) {
+            oscillatorArr.push(audioContext.createOscillator())
+        }
+
+
+        for (var i = 0; i < oscillatorArr.length; i += 1) {
+            oscillatorArr[i].start(audioContext.currentTime + time || 0);
+        }
+
+
+        return callback(loadedSound, oscillatorArr);
     }
 
-    soundObj.stop = function() {
-        loadedSound.stop(audioContext.currentTime);
+    soundObj.stop = function(time) {
+
+        if (soundObj.soundToPlay !== undefined) {
+            loadedSound.stop(audioContext.currentTime);
+        }
+
+        for (var i = 0; i < oscillatorArr.length; i += 1) {
+            oscillatorArr[i].stop(audioContext.currentTime + time || 0);
+        }
+
+
     }
 
     return soundObj;
@@ -76,6 +112,7 @@ function wktAudio(obj) {
 
     var oldHead = arrayFromObj[0];
 
+
     for (var i = 0; i < arrayFromObj.length; i += 1) {
 
         if (typeof arrayFromObj[i] === "function") {
@@ -92,13 +129,46 @@ function wktAudio(obj) {
 
 
 
+    //___________________________________________BEGIN find osc number 
+
+    var oscArr = [];
+
+    for (var i = 0; i < arrayFromObj.length; i += 1) {
+        if (typeof arrayFromObj[i] === "number") {
+            oscArr.push(arrayFromObj[i])
+
+        }
+    }
+
+    oscArr.sort(function(a, b) {
+        return a - b
+    })
+
+    var numberOfOscillators = oscArr[oscArr.length - 1];
+
+
+
+
+
+
+
+
+    //____________________________________________END find osc number
+
+
+
+
+
+
+
+
 
     for (var prop in obj) {
 
-        obj[prop] = audioFileLoader(obj[prop], arrayFromObj[0]);
+        obj[prop] = audioFileLoader(obj[prop], numberOfOscillators, arrayFromObj[0]);
         counter += 1;
     }
-    console.log(obj);
+
 
     return obj
 }

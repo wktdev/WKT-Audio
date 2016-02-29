@@ -1,18 +1,65 @@
+//___________________________________________________________________________________________BEGIN Oscillator example
+
 var resources = {
+    osc: 11, // ________________________________Number of oscillators
 
+    nodes: function nodeGraph(sound, osc) {
 
-    snare: "sounds/snare.mp3",
-    drum: "sounds/drum_loop.mp3",
-    nodes: function nodeGraph(sound) {
-
-        var gain = audioContext.createGain();
-        gain.gain.value = 0.5;
-        sound.connect(gain);
-        gain.connect(audioContext.destination);
-
+        var saw = osc[0]; //____________________Number of oscillators expressed as an array
+        saw.type = "sawtooth";
+        saw.frequency.value = 46;
+        var tri = osc[1]; //____________________Number of oscillators expressed as an array
+        tri.type = "triangle";
+        tri.frequency.value = 182;
+        tri.connect(audioContext.destination);
+        saw.connect(audioContext.destination);
 
     }
 }
+
+
+
+
+var synth = wktAudio(resources);
+
+
+
+
+
+
+$(function() {
+
+
+    $(".osc").mousedown(function() {
+        synth.osc.play();
+    })
+
+    $(".osc").mouseup(function() {
+        synth.osc.stop();
+    })
+
+
+
+})
+
+
+
+//___________________________________________________________________________________________END Oscillator example
+
+
+//___________________________________________________________________________________________BEGIN Audio buffer example
+
+var resources = {
+    loop: "sounds/drum_loop.mp3", // ________________________________Audio file directory
+    snare: "sounds/snare.mp3", // ___________________________________Audio file directory
+
+    nodes: function nodeGraph(sound, osc) {
+
+        sound.connect(audioContext.destination)
+
+    }
+}
+
 
 
 
@@ -22,15 +69,32 @@ var sound = wktAudio(resources);
 
 
 
+
+
 $(function() {
 
-    $(".snare").click(function() {
+
+
+    $(".loop").mousedown(function() {
+        sound.loop.play();
+    })
+
+    $(".loop").mouseup(function() {
+        sound.loop.stop();
+    })
+
+
+    $(".snare").mousedown(function() {
         sound.snare.play();
     })
 
-    $(".loop").click(function() {
-        sound.drum.play();
+    $(".snare").mouseup(function() {
+        sound.snare.stop();
     })
 
 
+
+
 })
+
+//___________________________________________________________________________________________END Audio buffer example
