@@ -32,7 +32,7 @@ function audioFileLoader(fileDirectory, numberOfOscillators, callback) {
 
 
 
-    soundObj.play = function(time) {
+    soundObj.play = function(time, setStart, setDuration) {
 
         oscillatorArr = [];
 
@@ -41,7 +41,7 @@ function audioFileLoader(fileDirectory, numberOfOscillators, callback) {
         if (soundObj.soundToPlay !== undefined) {
 
             loadedSound.buffer = soundObj.soundToPlay;
-            loadedSound.start(audioContext.currentTime + time || 0);
+            loadedSound.start(audioContext.currentTime + time || 0, setStart || 0, setDuration || soundObj.soundToPlay.duration);
 
         }
 
