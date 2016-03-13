@@ -20,7 +20,7 @@ var resourcesOsc = {
 
 
 
-var synth = wktAudio(resourcesOsc);
+var synth = wktAudioBatch(resourcesOsc);
 
 
 
@@ -63,7 +63,7 @@ var resourcesSounds = {
 
 
 
-var sound = wktAudio(resourcesSounds);
+var sounds = wktAudioBatch(resourcesSounds);
 
 
 
@@ -76,20 +76,20 @@ $(function() {
 
 
     $(".loop").mousedown(function() {
-        sound.loop.play(0, 1, 1);
+        sounds.loop.play();
     })
 
     $(".loop").mouseup(function() {
-        sound.loop.stop();
+        sounds.loop.stop();
     })
 
 
     $(".snare").mousedown(function() {
-        sound.snare.play();
+        sounds.snare.play();
     })
 
     $(".snare").mouseup(function() {
-        sound.snare.stop();
+        sounds.snare.stop();
     })
 
 
@@ -98,3 +98,35 @@ $(function() {
 })
 
 //___________________________________________________________________________________________END Audio buffer example
+
+
+
+
+//__________________________________________________________________________________________START loop single
+
+
+
+var loop = wktAudio('sounds/drum_loop.mp3');
+
+
+
+
+
+
+$(function() {
+
+
+
+    $(".loop-single").mousedown(function() {
+        loop.play()
+    })
+
+    $(".loop-single").mouseup(function() {
+        loop.stop();
+    })
+
+
+
+})
+
+//____________________________________________________________________________________________END loop single

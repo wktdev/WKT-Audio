@@ -23,7 +23,7 @@ Web Audio API file loader with customizable node graph for each loaded file or b
     
     
     
-    var sound = wktAudio(resources);
+    var sound = wktAudioBatch(resources);
     
     
     
@@ -40,7 +40,12 @@ Web Audio API file loader with customizable node graph for each loaded file or b
         })
     
     
+    
     })
+
+
     
     
     
+
+

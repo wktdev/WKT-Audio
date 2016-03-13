@@ -1,6 +1,6 @@
 var audioContext = new AudioContext();
 
-function audioFileLoader(fileDirectory, numberOfOscillators, callback) {
+function wktAudio(fileDirectory, numberOfOscillators, callback) {
 
     var oscillatorArr = [];
     var soundObj = {};
@@ -56,7 +56,11 @@ function audioFileLoader(fileDirectory, numberOfOscillators, callback) {
         }
 
 
-        return callback(loadedSound, oscillatorArr);
+        if (typeof callback === "function") {
+            return callback(loadedSound, oscillatorArr)
+        } else {
+            return loadedSound.connect(audioContext.destination)
+        }
     }
 
     soundObj.stop = function(time) {
@@ -75,7 +79,7 @@ function audioFileLoader(fileDirectory, numberOfOscillators, callback) {
     return soundObj;
 };
 
-function wktAudio(obj) {
+function wktAudioBatch(obj) {
     var counter = 1;
     //________________________________________________________BEGIN converted object to array
     var arrayFromObj = Object.keys(obj).map(function(key) {
@@ -165,7 +169,7 @@ function wktAudio(obj) {
 
     for (var prop in obj) {
 
-        obj[prop] = audioFileLoader(obj[prop], numberOfOscillators, arrayFromObj[0]);
+        obj[prop] = wktAudio(obj[prop], numberOfOscillators, arrayFromObj[0]);
         counter += 1;
     }
 
