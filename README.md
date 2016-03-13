@@ -42,9 +42,36 @@ Web Audio API file loader with customizable node graph for each loaded file or b
     
     
     })
-
-
     
+    //_____________________________________________________________START loop single
+    
+    
+    
+    var loop = wktAudio('sounds/drum_loop.mp3');
+    
+    
+    
+    
+    
+    
+    $(function() {
+    
+    
+    
+        $(".loop-single").mousedown(function() {
+            loop.play()
+        })
+    
+        $(".loop-single").mouseup(function() {
+            loop.stop();
+        })
+    
+    
+    
+    })
+    
+    //______________________________________________________________END loop single
+        
     
     
 
