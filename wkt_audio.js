@@ -80,7 +80,7 @@ function wktAudio(fileDirectory, numberOfOscillators, callback) {
 };
 
 function wktAudioBatch(obj) {
-    var counter = 1;
+
     //________________________________________________________BEGIN converted object to array
     var arrayFromObj = Object.keys(obj).map(function(key) {
         return obj[key]
@@ -170,7 +170,7 @@ function wktAudioBatch(obj) {
     for (var prop in obj) {
 
         obj[prop] = wktAudio(obj[prop], numberOfOscillators, arrayFromObj[0]);
-        counter += 1;
+
     }
 
 
