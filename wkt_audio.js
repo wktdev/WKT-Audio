@@ -41,7 +41,7 @@ function wktAudio(fileDirectory, numberOfOscillators, callback) {
         if (soundObj.soundToPlay !== undefined) {
 
             loadedSound.buffer = soundObj.soundToPlay;
-            loadedSound.start(audioContext.currentTime + time || 0, setStart || 0, setDuration || soundObj.soundToPlay.duration);
+            loadedSound.start(audioContext.currentTime + time || audioContext.currentTime, setStart || 0, setDuration || soundObj.soundToPlay.duration);
 
         }
 
@@ -52,7 +52,7 @@ function wktAudio(fileDirectory, numberOfOscillators, callback) {
 
 
         for (var i = 0; i < oscillatorArr.length; i += 1) {
-            oscillatorArr[i].start(audioContext.currentTime + time || 0);
+            oscillatorArr[i].start(audioContext.currentTime + time || audioContext.currentTime);
         }
 
 
@@ -66,11 +66,11 @@ function wktAudio(fileDirectory, numberOfOscillators, callback) {
     soundObj.stop = function(time) {
 
         if (soundObj.soundToPlay !== undefined) {
-            loadedSound.stop(audioContext.currentTime);
+            loadedSound.stop(audioContext.currentTime + time || audioContext.currentTime);
         }
 
         for (var i = 0; i < oscillatorArr.length; i += 1) {
-            oscillatorArr[i].stop(audioContext.currentTime + time || 0);
+            oscillatorArr[i].stop(audioContext.currentTime + time || audioContext.currentTime);
         }
 
 

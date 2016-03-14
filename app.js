@@ -76,7 +76,7 @@ $(function() {
 
 
     $(".loop").mousedown(function() {
-        sounds.loop.play();
+        sounds.loop.play(3);
     })
 
     $(".loop").mouseup(function() {
