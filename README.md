@@ -2,10 +2,40 @@
 Web Audio API file loader with customizable node graph for each loaded file or batch. It also allows you to create oscillators with custom node graphs. 
 
 
+## The mode simple use case example
+
+    //_____________________________________________________________START file single
+    
+    var loop = wktAudio('sounds/drum_loop.mp3'); // load a single file
+    
+    
+    $(function() {
+    
+    
+    
+        $(".loop-single").mousedown(function() {
+            '''loop.play();'''   // play it
+        })
+    
+        $(".loop-single").mouseup(function() {
+            '''loop.stop();'''   // stop it
+        })
+    
+    
+    
+    })
+    
+    //______________________________________________________________END file single
 
 
 
-## Example
+
+
+
+
+
+
+## More complicated examples 
 
 
     //______________________________________________________________________BEGIN Oscillator example
@@ -87,34 +117,7 @@ Web Audio API file loader with customizable node graph for each loaded file or b
     
     })
     
-    //_____________________________________________________________START loop single
-    
-    
-    
-    var loop = wktAudio('sounds/drum_loop.mp3');
-    
-    
-    
-    
-    
-    
-    $(function() {
-    
-    
-    
-        $(".loop-single").mousedown(function() {
-            loop.play()
-        })
-    
-        $(".loop-single").mouseup(function() {
-            loop.stop();
-        })
-    
-    
-    
-    })
-    
-    //______________________________________________________________END loop single
+
         
     
     
