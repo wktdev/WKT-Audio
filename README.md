@@ -1,9 +1,53 @@
 # WKT Audio
-Web Audio API file loader with customizable node graph for each loaded file or batch.
+Web Audio API file loader with customizable node graph for each loaded file or batch. It also allows you to create oscillators with custom node graphs. 
+
+
+
 
 
 ## Example
 
+
+    //______________________________________________________________________BEGIN Oscillator example
+
+
+    var resourcesOsc = {
+        osc: 10, // ________________________________Number of oscillators
+    
+        nodes: function nodeGraph(sound, osc) {
+            var saw = osc[0]; //____________________Number of oscillator expressed as an array index
+            var tri = osc[1]; //____________________Number of oscillator expressed as an array index
+            saw.type = "sawtooth";
+            saw.frequency.value = 46;
+            tri.type = "triangle";
+            tri.frequency.value = 182;
+            tri.connect(audioContext.destination);
+            saw.connect(audioContext.destination);
+    
+        }
+    };
+    
+    
+    var synth = wktAudioBatch(resourcesOsc);
+    
+    
+    $(function() {
+    
+    
+        $(".osc").mousedown(function() {
+            synth.osc.play();
+        });
+    
+        $(".osc").mouseup(function() {
+            synth.osc.stop();
+        });
+    
+    
+    
+    });
+
+    //______________________________________________________________________END Oscillator example
+    
     
     var resources = {
     
