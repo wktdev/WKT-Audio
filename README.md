@@ -14,11 +14,11 @@ Web Audio API file loader with customizable node graph for each loaded file or b
     
     
         $(".loop-single").mousedown(function() {
-            '''loop.play();'''   // play it
+            loop.play();   // play it
         })
     
         $(".loop-single").mouseup(function() {
-            '''loop.stop();'''   // stop it
+            loop.stop();  // stop it
         })
     
     
