@@ -2,7 +2,7 @@
 Web Audio API file loader with customizable node graph for each loaded file or batch. It also allows you to create oscillators with custom node graphs. 
 
 
-## The mode simple use case example
+## The simplest use case example
 
     //_____________________________________________________________START file single
     
