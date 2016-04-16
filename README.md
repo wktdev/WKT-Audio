@@ -81,11 +81,12 @@ Web Audio API file loader with customizable node graph for each loaded file or b
     
     
     
-    ### "Load" A batch of audio files with customized node grpah
+###"Load" A batch of audio files with customized node grpah
     
     
     
-   //__________________________________________START Example of loading a batch of files with customized node graph 
+    
+    //__________________________________________START Example of loading a batch of files with customized node graph 
     
     
     var resources = {
@@ -128,7 +129,6 @@ Web Audio API file loader with customizable node graph for each loaded file or b
     
 
         
-    
-   //__________________________________________END Example of loading a batch of files with customized node graph
+    //__________________________________________END Example of loading a batch of files with customized node graph
 
 
