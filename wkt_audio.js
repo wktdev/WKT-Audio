@@ -1,20 +1,25 @@
+"use strict";
+
 var audioContext = new AudioContext();
 
 function wktAudio(fileDirectory, numberOfOscillators, callback) {
 
-    var oscillatorArr = [];
-    var soundObj = {};
-    var oscillator = audioContext.createOscillator();
-    var loadedSound = undefined;
+    var oscillatorArr = [],
+        loadedSound = undefined,
+        soundObj = {},
+        oscillator = audioContext.createOscillator(),
+        getSound = new XMLHttpRequest();
 
 
-    for (var i = 0; i < numberOfOscillators; i += 1) {
-        oscillatorArr.push(audioContext.createOscillator())
-    }
+
+
+    loopIt(numberOfOscillators, function() {
+        return oscillatorArr.push(audioContext.createOscillator());
+
+    });
 
 
     soundObj.fileDirectory = fileDirectory;
-    var getSound = new XMLHttpRequest();
     getSound.open("GET", soundObj.fileDirectory, true);
     getSound.responseType = "arraybuffer";
     getSound.onload = function() {
@@ -24,7 +29,7 @@ function wktAudio(fileDirectory, numberOfOscillators, callback) {
             soundObj.soundToPlay = buffer;
 
         });
-    }
+    };
 
     if (typeof fileDirectory === "string") {
         getSound.send();
@@ -46,22 +51,29 @@ function wktAudio(fileDirectory, numberOfOscillators, callback) {
         }
 
 
-        for (var i = 0; i < numberOfOscillators; i += 1) {
-            oscillatorArr.push(audioContext.createOscillator())
-        }
+        loopIt(numberOfOscillators, function() {
+            return oscillatorArr.push(audioContext.createOscillator());
+        });
+
+        oscillatorArr.forEach(function(val, index) {
+            return oscillatorArr[index].start(audioContext.currentTime + time || audioContext.currentTime);
+        });
 
 
-        for (var i = 0; i < oscillatorArr.length; i += 1) {
-            oscillatorArr[i].start(audioContext.currentTime + time || audioContext.currentTime);
-        }
 
 
         if (typeof callback === "function") {
-            return callback(loadedSound, oscillatorArr)
+
+            return callback(loadedSound, oscillatorArr);
+
         } else {
-            return loadedSound.connect(audioContext.destination)
+
+            return loadedSound.connect(audioContext.destination);
+
         }
-    }
+    };
+
+
 
     soundObj.stop = function(time) {
 
@@ -69,23 +81,26 @@ function wktAudio(fileDirectory, numberOfOscillators, callback) {
             loadedSound.stop(audioContext.currentTime + time || audioContext.currentTime);
         }
 
-        for (var i = 0; i < oscillatorArr.length; i += 1) {
-            oscillatorArr[i].stop(audioContext.currentTime + time || audioContext.currentTime);
-        }
 
+        oscillatorArr.forEach(function(val, index) {
 
-    }
+            return oscillatorArr[index].stop(audioContext.currentTime + time || audioContext.currentTime);
+
+        });
+
+    };
 
     return soundObj;
-};
+}
 
 function wktAudioBatch(obj) {
 
     //________________________________________________________BEGIN converted object to array
     var arrayFromObj = Object.keys(obj).map(function(key) {
-        return obj[key]
+        return obj[key];
     });
     //________________________________________________________END converted object to array
+
     //________________________________________________________BEGIN array should only have 1 function, if more then throw error
 
 
@@ -94,15 +109,15 @@ function wktAudioBatch(obj) {
         var answer = arr.filter(function(val) {
 
             if (typeof val === "function") {
-                return val
+                return val;
             }
-        })
+        });
 
 
         if (answer.length > 1) {
 
 
-            throw new Error("WKT Audio: Only one function can be used")
+            throw new Error("WKT Audio: Only one function can be used");
 
         }
 
@@ -116,16 +131,15 @@ function wktAudioBatch(obj) {
 
     var oldHead = arrayFromObj[0];
 
+    arrayFromObj.forEach(function(val, index) {
 
-    for (var i = 0; i < arrayFromObj.length; i += 1) {
+        if (typeof arrayFromObj[index] === "function") {
 
-        if (typeof arrayFromObj[i] === "function") {
-
-            arrayFromObj[0] = arrayFromObj[i];
-            arrayFromObj[i] = oldHead;
+            arrayFromObj[0] = arrayFromObj[index];
+            arrayFromObj[index] = oldHead;
         }
+    });
 
-    }
 
 
     //________________________________________________________END find function and set to head of array
@@ -137,34 +151,25 @@ function wktAudioBatch(obj) {
 
     var oscArr = [];
 
-    for (var i = 0; i < arrayFromObj.length; i += 1) {
-        if (typeof arrayFromObj[i] === "number") {
-            oscArr.push(arrayFromObj[i])
+    arrayFromObj.forEach(function(val, index) {
+
+        if (typeof arrayFromObj[index] === "number") {
+            oscArr.push(arrayFromObj[index]);
 
         }
-    }
+
+    });
+
 
     oscArr.sort(function(a, b) {
-        return a - b
-    })
+        return a - b;
+    });
+
 
     var numberOfOscillators = oscArr[oscArr.length - 1];
 
 
-
-
-
-
-
-
     //____________________________________________END find osc number
-
-
-
-
-
-
-
 
 
     for (var prop in obj) {
@@ -173,6 +178,5 @@ function wktAudioBatch(obj) {
 
     }
 
-
-    return obj
+    return obj;
 }
