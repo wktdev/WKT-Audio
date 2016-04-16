@@ -36,6 +36,7 @@ Web Audio API file loader with customizable node graph for each loaded file or b
 
 
 ## More complicated examples 
+### "Load" oscillators
 
 
     //______________________________________________________________________BEGIN Oscillator example
@@ -80,7 +81,7 @@ Web Audio API file loader with customizable node graph for each loaded file or b
     
     
     
-    
+    ### "Load" A batch of audio files with customized node grpah
     
     
     
@@ -128,6 +129,6 @@ Web Audio API file loader with customizable node graph for each loaded file or b
 
         
     
-       //__________________________________________END Example of loading a batch of files with customized node graph
+   //__________________________________________END Example of loading a batch of files with customized node graph
 
 
